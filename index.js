@@ -1,44 +1,51 @@
-var Task = /** @class */ (function () {
-    function Task(description) {
-        this.description = description;
-        this.status = "pending";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Books = /** @class */ (function () {
+    function Books(title, author) {
+        this.title = title;
+        this.author = author;
     }
-    Task.prototype.completeTask = function () {
-        this.status = "successful";
+    Books.prototype.GetDetails = function () {
+        return "".concat(this.title, " by ").concat(this.author);
     };
-    Task.prototype.updateTask = function (newDescription) {
-        this.description = newDescription;
-    };
-    return Task;
+    return Books;
 }());
-var TaskManager = /** @class */ (function () {
-    function TaskManager() {
-        this.tasks = [];
+var Member = /** @class */ (function () {
+    function Member(name, memberIdNo) {
+        this.name = name;
+        this.memberIdNo = memberIdNo;
     }
-    TaskManager.prototype.createTask = function (description) {
-        var newTask = new Task(description);
-        this.tasks.push(newTask);
-        return newTask;
+    Member.prototype.getMemberInfo = function () {
+        return "Name:".concat(this.name, ", MemberId:").concat(this.memberIdNo);
     };
-    TaskManager.prototype.listTasks = function () {
-        this.tasks.forEach(function (task, index) {
-            console.log("".concat(index + 1, ": ").concat(task.description, " -").concat(task.status));
-        });
-    };
-    TaskManager.prototype.completeTask = function (index) {
-        if (this.tasks[index]) {
-            this.tasks[index].completeTask();
-        }
-        else {
-            console.log("Task not Completed!");
-        }
-    };
-    return TaskManager;
+    return Member;
 }());
-//Examples
-var taskManager = new TaskManager();
-taskManager.createTask("Learn Object Oriented Programming");
-taskManager.createTask("Build a task Manager for Hatchdev 3.1");
-taskManager.listTasks();
-taskManager.completeTask(0);
-taskManager.listTasks();
+var Librarian = /** @class */ (function (_super) {
+    __extends(Librarian, _super);
+    function Librarian(name, memberIdNo) {
+        return _super.call(this, name, memberIdNo) || this;
+    }
+    Librarian.prototype.getMemberInfo = function () {
+        return "librarian ".concat(_super.prototype.getMemberInfo.call(this));
+    };
+    return Librarian;
+}(Member));
+var Book1 = new Books("Things fall apart", "Chinua Achebe");
+console.log(Book1.GetDetails());
+var Member1 = new Member("Bright", 2029);
+console.log(Member1.getMemberInfo());
+var librarian = new Librarian("Mrs theresa", 2007);
+console.log(librarian.getMemberInfo());

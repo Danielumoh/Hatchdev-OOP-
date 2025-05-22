@@ -1,52 +1,45 @@
-class Task {
-  description: string;
-  status: string;
+class Books{
+    title: string;
+    author:string;
 
-  constructor(description: string) {
-    this.description = description;
-    this.status = "pending";
-  }
+    constructor( title: string, author:string) {
+        this.title = title;
+        this.author = author;
+    }
 
-  completeTask(): void {
-    this.status = "successful";
-  }
+    GetDetails(): string{
+        return `${this.title} by ${this.author}`; 
+    }
+}
+ 
+class Member{
+    private name: string;
+    private memberIdNo: number;
 
-  updateTask(newDescription: string): void {
-    this.description = newDescription;
-  }
+    constructor( name:string,memberIdNo:number ){
+        this.name=name;
+        this.memberIdNo=memberIdNo;
+    }
+
+    getMemberInfo():string{
+        return `Name:${this.name}, MemberId:${this.memberIdNo}`;
+    }
 }
 
-class TaskManager {
-  private tasks: Task[] = [];
-
-  createTask(description: string): Task {
-    const newTask = new Task(description);
-
-    this.tasks.push(newTask);
-    return newTask;
-  }
-  listTasks():void{
-    this.tasks.forEach((task,index)=>{
-        console.log(`${index + 1}: ${task.description} -${task.status}`)
-    });
-  }
-
-  completeTask(index:number):void{
-    if (this.tasks[index]){
-        this.tasks[index].completeTask()
+class Librarian extends Member{
+    constructor(name:string, memberIdNo:number){
+        super(name, memberIdNo);
     }
-    else{
-        console.log("Task not Completed!");
+    getMemberInfo(): string {
+        return `librarian ${super.getMemberInfo()}`
     }
-  }
 }
 
-//Examples
+const Book1 = new Books("Things fall apart", "Chinua Achebe");
+console.log(Book1.GetDetails());
 
-const taskManager = new TaskManager();
-taskManager.createTask("Learn Object Oriented Programming");
-taskManager.createTask("Build a task Manager for Hatchdev 3.1");
-taskManager.listTasks();
-taskManager.completeTask(0);
-taskManager.listTasks();
+const Member1 = new Member("Bright", 2029);
+console.log(Member1.getMemberInfo());
 
+const librarian = new Librarian("Mrs theresa", 2007);
+console.log(librarian.getMemberInfo());
